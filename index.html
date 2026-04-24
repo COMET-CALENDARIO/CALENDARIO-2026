@@ -227,12 +227,10 @@ function loadData(){
 }
 
 function saveData(){
-  fetch("AKfycbz1aSago_W19qW_uyRLiwhSkFf5bZUw7PRH1kwZ0PKSwGEjkL4KAx5vWcaLrpnD7w1h", {
+  fetch("https://script.google.com/macros/s/AKfycbxvgDxc3-fpF9-lo5_eC4n9ibWHYAEvVKYjJO6ynwb96DmGWFUt-r5y0U_w6y-o3Bxu/exec", {
     method: "POST",
     body: JSON.stringify(state)
-  })
-  .then(r => r.text())
-  .then(() => alert("Guardado en la nube ✔"));
+  });
 }
   })
   .then(res => res.text())
@@ -539,14 +537,19 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape') closePopup(); });
 document.addEventListener('keydown',e=>{ if((e.ctrlKey||e.metaKey)&&e.key==='s'){e.preventDefault();saveData();} });
 
 function loadFromCloud(){
-  fetch("TU_URL_AQUI")
+  fetch("https://script.google.com/macros/s/AKfycbxvgDxc3-fpF9-lo5_eC4n9ibWHYAEvVKYjJO6ynwb96DmGWFUt-r5y0U_w6y-o3Bxu/exec")
     .then(r => r.json())
     .then(data => {
       state = data;
       render();
     });
 }
-
+fetch("https://script.google.com/macros/s/AKfycbxvgDxc3-fpF9-lo5_eC4n9ibWHYAEvVKYjJO6ynwb96DmGWFUt-r5y0U_w6y-o3Bxu/exec")
+  .then(r => r.json())
+  .then(data => {
+    state = data || {};
+    render();
+  });
 loadFromServer();
 render();
 </script>
