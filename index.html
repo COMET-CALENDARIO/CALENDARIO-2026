@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -10,12 +10,24 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
 header{background:#fff;border-bottom:1px solid #e2e5eb;padding:0 20px;height:52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
 .logo{font-size:13px;font-weight:600;color:#1a1d23;letter-spacing:.01em}
 .logo span{color:#2563eb}
-.header-right{display:flex;align-items:center;gap:12px}
+.header-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .save-btn{background:#2563eb;color:#fff;border:none;padding:6px 16px;border-radius:7px;font-size:12px;font-weight:500;cursor:pointer;transition:background .15s}
 .save-btn:hover{background:#1d4ed8}
-.save-ok{background:#16a34a}
+.save-ok{background:#16a34a !important}
+.btn-secondary{background:#f3f4f6;color:#374151;border:1px solid #d1d5db;padding:6px 12px;border-radius:7px;font-size:12px;font-weight:500;cursor:pointer;transition:background .15s}
+.btn-secondary:hover{background:#e5e7eb}
+.btn-export{background:#fff7ed;color:#9a3412;border:1px solid #fdba74}
+.btn-export:hover{background:#ffedd5}
+.btn-import{background:#f0fdf4;color:#166534;border:1px solid #86efac}
+.btn-import:hover{background:#dcfce7}
 .unsaved-dot{width:6px;height:6px;border-radius:50%;background:#f59e0b;display:none}
 .unsaved-dot.show{display:inline-block}
+
+/* Toast notification */
+.toast{position:fixed;bottom:20px;right:20px;background:#1a1d23;color:#fff;padding:10px 18px;border-radius:8px;font-size:12px;font-weight:500;z-index:9999;opacity:0;transform:translateY(8px);transition:all .25s;pointer-events:none}
+.toast.show{opacity:1;transform:translateY(0)}
+.toast.success{background:#15803d}
+.toast.error{background:#b91c1c}
 
 .main{padding:16px 20px 40px}
 .top-bar{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
@@ -30,7 +42,6 @@ select:focus{outline:2px solid #2563eb;outline-offset:1px}
 .cal-wrap{overflow-x:auto;border:1px solid #e2e5eb;border-radius:10px;background:#fff}
 table{border-collapse:collapse;min-width:800px;width:100%}
 
-/* headers */
 th.th-name{position:sticky;left:0;background:#f8f9fb;z-index:5;width:140px;min-width:140px;max-width:140px;font-size:11px;font-weight:600;color:#374151;padding:7px 10px;border-right:1px solid #d1d5db;border-bottom:1px solid #e2e5eb;text-align:left}
 th.th-acum{font-size:10px;font-weight:600;color:#6b7280;padding:5px 5px;text-align:center;border-right:1px solid #e8eaed;border-bottom:1px solid #e2e5eb;background:#f8f9fb;min-width:36px;white-space:nowrap}
 th.th-month{text-align:center;font-size:10px;font-weight:600;padding:5px 4px;border-right:1px solid #d1d5db;border-bottom:1px solid #e2e5eb;color:#374151}
@@ -39,7 +50,6 @@ th.th-day.we{background:#f3f4f6}
 th.th-day.fe{background:#fef3c7;color:#92400e}
 th.th-day.today-hdr{background:#eff6ff;color:#1d4ed8;font-weight:700}
 
-/* rows */
 td.td-name{position:sticky;left:0;background:#fff;z-index:2;padding:5px 10px;border-right:1px solid #d1d5db;border-bottom:1px solid #f0f1f3;font-size:11px;font-weight:500;color:#1a1d23;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px}
 td.td-name.ett{background:#fffbeb}
 td.td-acum{text-align:center;padding:4px 4px;border-right:1px solid #e8eaed;border-bottom:1px solid #f0f1f3;font-size:10px;font-weight:600}
@@ -48,7 +58,6 @@ td.td-acum.ac-it{color:#b45309}
 td.td-acum.ac-hp{color:#1d4ed8}
 td.td-acum.ac-pct{color:#6b7280}
 
-/* day cells */
 td.cell{text-align:center;padding:1px;border-right:1px solid #e8eaed;border-bottom:1px solid #f0f1f3;cursor:pointer;min-width:28px;width:28px;height:26px;vertical-align:middle;user-select:none;transition:filter .1s}
 td.cell:hover{filter:brightness(.92)}
 td.cell span{font-size:10px;font-weight:600;display:block;line-height:1;pointer-events:none}
@@ -73,17 +82,12 @@ td.cell.type-AU{background:#f3f4f6}
 td.cell.type-AU span{color:#4b5563}
 td.cell.today-cell{outline:2px solid #2563eb;outline-offset:-2px}
 
-/* counter row */
 tr.counter-row td{background:#f8f9fb;border-bottom:1px solid #d1d5db}
 tr.counter-row td.ctr-val{font-size:9px;font-weight:700;line-height:1.1;padding:2px 1px}
 tr.counter-row td.ctr-t{color:#15803d}
 tr.counter-row td.ctr-r{color:#1d4ed8}
 tr.counter-row td.ctr-empty{background:#f9fafb}
 
-/* separator row */
-tr.sep-row td{background:#f1f5f9;height:4px;padding:0}
-
-/* popup */
 .popup-wrap{position:absolute;z-index:50;pointer-events:none}
 .popup-wrap.open{pointer-events:auto}
 .popup{background:#fff;border:1px solid #d1d5db;border-radius:10px;padding:12px;width:210px;box-shadow:0 4px 16px rgba(0,0,0,.1)}
@@ -101,21 +105,49 @@ tr.sep-row td{background:#f1f5f9;height:4px;padding:0}
 .h-row button{padding:4px 10px;font-size:11px;font-weight:500;border-radius:6px;border:1px solid #d1d5db;background:#f9fafb;cursor:pointer;color:#374151}
 .h-row button:hover{background:#f3f4f6}
 
-/* summary cards */
 .summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:14px}
 .scard{background:#fff;border:1px solid #e2e5eb;border-radius:9px;padding:11px 14px}
 .scard-label{font-size:10px;color:#9ca3af;font-weight:500;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
 .scard-val{font-size:22px;font-weight:700;line-height:1}
 .scard-sub{font-size:10px;color:#9ca3af;margin-top:2px}
+
+/* Import modal */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;display:flex;align-items:center;justify-content:center;display:none}
+.modal-bg.open{display:flex}
+.modal{background:#fff;border-radius:12px;padding:20px;width:360px;box-shadow:0 8px 32px rgba(0,0,0,.15)}
+.modal h3{font-size:14px;font-weight:600;margin-bottom:8px}
+.modal p{font-size:12px;color:#6b7280;margin-bottom:14px;line-height:1.5}
+.modal-btns{display:flex;gap:8px;justify-content:flex-end}
+.drop-zone{border:2px dashed #d1d5db;border-radius:8px;padding:20px;text-align:center;font-size:12px;color:#9ca3af;cursor:pointer;margin-bottom:12px;transition:border-color .15s}
+.drop-zone:hover,.drop-zone.drag{border-color:#2563eb;color:#2563eb;background:#eff6ff}
 </style>
 </head>
 <body>
+
+<div id="toast" class="toast"></div>
+
+<!-- Import modal -->
+<div class="modal-bg" id="import-modal">
+  <div class="modal">
+    <h3>📂 Importar datos desde archivo</h3>
+    <p>Selecciona el archivo <strong>.json</strong> que exportaste desde el ordenador local. Los datos se cargarán y podrás guardarlos en la nube con el botón <strong>Guardar</strong>.</p>
+    <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+      Haz clic o arrastra el archivo .json aquí
+    </div>
+    <input type="file" id="file-input" accept=".json" style="display:none" onchange="handleFileImport(event)">
+    <div class="modal-btns">
+      <button class="btn-secondary" onclick="closeImportModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
 
 <header>
   <div class="logo">Almacén <span>/</span> Calendario 2026</div>
   <div class="header-right">
     <span class="unsaved-dot" id="unsaved-dot" title="Cambios sin guardar"></span>
-    <button class="save-btn" id="save-btn" onclick="saveData()">Guardar</button>
+    <button class="btn-secondary btn-export" onclick="exportJSON()" title="Descargar datos como archivo JSON">⬇ Exportar JSON</button>
+    <button class="btn-secondary btn-import" onclick="openImportModal()" title="Subir archivo JSON local a la nube">⬆ Importar JSON</button>
+    <button class="save-btn" id="save-btn" onclick="saveData()">💾 Guardar</button>
   </div>
 </header>
 
@@ -160,11 +192,13 @@ tr.sep-row td{background:#f1f5f9;height:4px;padding:0}
   </div>
 
   <div style="margin-top:10px;font-size:11px;color:#9ca3af">
-    Los datos se guardan en este navegador (localStorage). Para llevar el archivo a otro ordenador usa "Exportar datos" o imprime con Ctrl+P.
+    Los datos se guardan en la nube (Google Sheets) con el botón <strong>Guardar</strong>. Usa <strong>Exportar JSON</strong> para descargar una copia local, e <strong>Importar JSON</strong> para subir datos guardados en otro ordenador.
   </div>
 </div>
 
 <script>
+const GAS_URL = "https://script.google.com/macros/s/AKfycbxvgDxc3-fpF9-lo5_eC4n9ibWHYAEvVKYjJO6ynwb96DmGWFUt-r5y0U_w6y-o3Bxu/exec";
+
 const YEAR = 2026;
 const MONTHS_ES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 const MONTHS_SH = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
@@ -183,7 +217,11 @@ const EMPS = [
   {id:'EMP007',name:'Jiménez Cruz, Miguel',   ett:true, area:'Picking',     base:{1:8,2:8,3:8,4:8,5:8}},
 ];
 
-EMPS.forEach(e=>{ const o=document.createElement('option'); o.value=e.id; o.textContent=e.name; document.getElementById('emp-filter').appendChild(o); });
+EMPS.forEach(e=>{
+  const o=document.createElement('option');
+  o.value=e.id; o.textContent=e.name;
+  document.getElementById('emp-filter').appendChild(o);
+});
 
 const TODAY = new Date(2026,3,22);
 const TODAY_STR = fmtDate(TODAY);
@@ -201,6 +239,16 @@ for(let i=0;i<365;i++){
 
 let state = {};
 
+// ── Toast helper ──────────────────────────────────────────────
+function showToast(msg, type='success', ms=2800){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.className='toast '+type+' show';
+  clearTimeout(t._tid);
+  t._tid=setTimeout(()=>{ t.className='toast'; },ms);
+}
+
+// ── State init ────────────────────────────────────────────────
 function initState(){
   EMPS.forEach(emp=>{
     if(!state[emp.id]) state[emp.id]={};
@@ -216,40 +264,6 @@ function initState(){
     });
   });
 }
-
-function loadData(){
-  try {
-    const raw=localStorage.getItem('gestor_cal_2026');
-    if(raw){ const parsed=JSON.parse(raw); state=parsed; }
-  } catch(e){}
-  initState();
-  prefillDemo();
-}
-
-function saveData(){
-  fetch("https://script.google.com/macros/s/AKfycbxvgDxc3-fpF9-lo5_eC4n9ibWHYAEvVKYjJO6ynwb96DmGWFUt-r5y0U_w6y-o3Bxu/exec", {
-    method: "POST",
-    body: JSON.stringify(state)
-  });
-}
-  })
-  .then(res => res.text())
-  .then(data => {
-    const btn=document.getElementById('save-btn');
-    btn.textContent='Guardado';
-    btn.classList.add('save-ok');
-    document.getElementById('unsaved-dot').classList.remove('show');
-
-    setTimeout(()=>{
-      btn.textContent='Guardar';
-      btn.classList.remove('save-ok');
-    },2000);
-  })
-  .catch(err=>{
-    alert("Error al guardar: "+err);
-  });
-}
-function markUnsaved(){ document.getElementById('unsaved-dot').classList.add('show'); }
 
 function prefillDemo(){
   const baja=[7,8,9,10,13,14,15,16,17];
@@ -267,13 +281,131 @@ function setStateVal(empId,k,val){
   state[empId][k]=val;
 }
 
+// ── Load from cloud ───────────────────────────────────────────
+function loadFromCloud(){
+  return fetch(GAS_URL)
+    .then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+    .then(data=>{
+      if(data && typeof data === 'object' && Object.keys(data).length > 0){
+        state = data;
+        showToast('✅ Datos cargados desde la nube');
+      } else {
+        // Nube vacía → usar localStorage si existe
+        const raw = localStorage.getItem('gestor_cal_2026');
+        if(raw){ state = JSON.parse(raw); showToast('⚠️ Nube vacía — datos locales cargados','error'); }
+        else { prefillDemo(); }
+      }
+    })
+    .catch(err=>{
+      console.warn('No se pudo conectar a la nube:', err);
+      // Fallback: localStorage
+      try {
+        const raw = localStorage.getItem('gestor_cal_2026');
+        if(raw){ state = JSON.parse(raw); showToast('⚠️ Sin conexión a la nube — datos locales','error',4000); }
+        else { prefillDemo(); showToast('⚠️ Sin conexión a la nube — datos de demo','error',4000); }
+      } catch(e){ prefillDemo(); }
+    });
+}
+
+// ── Save to cloud ─────────────────────────────────────────────
+function saveData(){
+  const btn = document.getElementById('save-btn');
+  btn.textContent = '⏳ Guardando…';
+  btn.disabled = true;
+
+  // Guardar también en localStorage como respaldo
+  try { localStorage.setItem('gestor_cal_2026', JSON.stringify(state)); } catch(e){}
+
+  fetch(GAS_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain' },
+    body: JSON.stringify(state)
+  })
+  .then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.text(); })
+  .then(()=>{
+    btn.textContent = '✅ Guardado';
+    btn.classList.add('save-ok');
+    document.getElementById('unsaved-dot').classList.remove('show');
+    showToast('✅ Guardado en Google Sheets');
+    setTimeout(()=>{
+      btn.textContent='💾 Guardar';
+      btn.classList.remove('save-ok');
+      btn.disabled=false;
+    },2200);
+  })
+  .catch(err=>{
+    btn.textContent='💾 Guardar';
+    btn.disabled=false;
+    showToast('❌ Error al guardar: '+err.message,'error',5000);
+    console.error('saveData error:',err);
+  });
+}
+
+function markUnsaved(){ document.getElementById('unsaved-dot').classList.add('show'); }
+
+// ── Export JSON ───────────────────────────────────────────────
+function exportJSON(){
+  const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'gestor_almacen_2026_' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('⬇ Archivo JSON descargado');
+}
+
+// ── Import JSON modal ─────────────────────────────────────────
+function openImportModal(){
+  document.getElementById('import-modal').classList.add('open');
+}
+function closeImportModal(){
+  document.getElementById('import-modal').classList.remove('open');
+}
+
+function handleFileImport(event){
+  const file = event.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if(typeof data !== 'object') throw new Error('Formato no válido');
+      state = data;
+      initState();
+      markUnsaved();
+      render();
+      closeImportModal();
+      showToast('✅ Datos importados. Pulsa Guardar para subir a la nube.');
+      // Limpiar input para permitir re-importar mismo archivo
+      event.target.value = '';
+    } catch(err){
+      showToast('❌ Error al leer el archivo: '+err.message,'error',5000);
+    }
+  };
+  reader.readAsText(file);
+}
+
+// Drag & drop en la zona de importación
+const dz = document.getElementById('drop-zone');
+dz.addEventListener('dragover', e=>{ e.preventDefault(); dz.classList.add('drag'); });
+dz.addEventListener('dragleave', ()=>dz.classList.remove('drag'));
+dz.addEventListener('drop', e=>{
+  e.preventDefault(); dz.classList.remove('drag');
+  const file = e.dataTransfer.files[0];
+  if(!file) return;
+  const fakeEvt = { target:{ files:[file], value:'' } };
+  handleFileImport(fakeEvt);
+});
+
+// ── Summary cards ─────────────────────────────────────────────
 function acums(empId,dates){
   let vac=0,it=0,hp=0,worked=0,total=0,pr=0,fs=0;
   const emp=EMPS.find(e=>e.id===empId);
   dates.forEach(d=>{
     if(!isWork(d)) return;
     total++;
-    const s=state[empId][fmtDate(d)];
+    const s=state[empId]?.[fmtDate(d)];
     if(!s) return;
     if(s.type==='V') { vac++; }
     else if(s.type==='IT') { it++; }
@@ -291,7 +423,6 @@ function acums(empId,dates){
 }
 
 function buildSummaryCards(){
-  const today=TODAY;
   const activeToday=EMPS.filter(emp=>{
     const s=state[emp.id]?.[TODAY_STR];
     return s&&(s.type==='normal'&&s.h>0||s.type==='Hx'||s.type==='FS');
@@ -309,6 +440,7 @@ function buildSummaryCards(){
   ].map(c=>`<div class="scard"><div class="scard-label">${c.label}</div><div class="scard-val" style="color:${c.color}">${c.val}</div><div class="scard-sub">${c.sub}</div></div>`).join('');
 }
 
+// ── Popup ─────────────────────────────────────────────────────
 let popupEmpId=null, popupKey=null;
 
 function render(){
@@ -383,7 +515,7 @@ function render(){
   });
   html+='</tr>';
 
-  empList.forEach((emp,eIdx)=>{
+  empList.forEach(emp=>{
     const ac=acums(emp.id,dates);
     html+=`<tr>`;
     html+=`<td class="td-name${emp.ett?' ett':''}" title="${emp.name} — ${emp.area}">${emp.name.split(',')[0]}${emp.ett?' <span style="font-size:9px;color:#92400e;background:#fef3c7;padding:1px 4px;border-radius:3px">ETT</span>':''}</td>`;
@@ -499,7 +631,6 @@ function closePopup(){
 
 function setCell(code,bh){
   if(!popupEmpId) return;
-  const d=new Date(popupKey);
   if(code==='V')      state[popupEmpId][popupKey]={type:'V',h:0};
   else if(code==='IT') state[popupEmpId][popupKey]={type:'IT',h:0};
   else if(code==='PR') state[popupEmpId][popupKey]={type:'PR',h:0};
@@ -520,7 +651,6 @@ function setHours(bh){
   const inp=document.getElementById('h-inp');
   if(!inp) return;
   const h=Math.round(parseFloat(inp.value)*10)/10||0;
-  const d=new Date(popupKey);
   if(h>bh) state[popupEmpId][popupKey]={type:'Hx',h};
   else state[popupEmpId][popupKey]={type:'normal',h};
   markUnsaved();
@@ -536,22 +666,13 @@ document.addEventListener('click',e=>{
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closePopup(); });
 document.addEventListener('keydown',e=>{ if((e.ctrlKey||e.metaKey)&&e.key==='s'){e.preventDefault();saveData();} });
 
-function loadFromCloud(){
-  fetch("https://script.google.com/macros/s/AKfycbxvgDxc3-fpF9-lo5_eC4n9ibWHYAEvVKYjJO6ynwb96DmGWFUt-r5y0U_w6y-o3Bxu/exec")
-    .then(r => r.json())
-    .then(data => {
-      state = data;
-      render();
-    });
-}
-fetch("https://script.google.com/macros/s/AKfycbxvgDxc3-fpF9-lo5_eC4n9ibWHYAEvVKYjJO6ynwb96DmGWFUt-r5y0U_w6y-o3Bxu/exec")
-  .then(r => r.json())
-  .then(data => {
-    state = data || {};
-    render();
-  });
-loadFromServer();
-render();
+// ── Bootstrap ─────────────────────────────────────────────────
+(async function init(){
+  initState();
+  await loadFromCloud();
+  initState(); // asegura que todos los empleados/días estén completos
+  render();
+})();
 </script>
 </body>
 </html>
